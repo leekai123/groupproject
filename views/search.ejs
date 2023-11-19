@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<style>
+    	label{
+        font-size: 1.3em;
+    }
+    </style>
+</head>
+<body>
+	<div class="jumbotron text-center">
+	<h1>Search Restaurant Information</h1>
+	</div>
+	<form action="/search" method="POST">
+	<label for="restaurantID"><b>Please input restaurant ID:</b></label><br>
+	<input type="text" id="restaurantID" name="restaurantID" placeholder="Type the restaurant ID" pattern="[0-9]{8}"><br>
+	<small>Format: XXXXXXXX (Only available for number)</small><br>
+	<input type="submit" value="Search" />
+	<p><a href='/home'>Back to home. </a></p>
+</body>
+</html>
+
