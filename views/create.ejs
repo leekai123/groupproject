@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant</title>
+    <style>
+    label{
+        font-size: 1.3em;
+    }
+    </style>
+</head>
+
+<div>
+<body>
+    <div class="jumbotron text-center">
+            <h1>Create New Restaurant Information</h1>
+        </div>
+    <form action="/create" method="POST">
+        <label for='name'><b>Restaurant Name*:</b></label><br>
+          <input type="text" id="name" name="name" placeholder=""><br><br>
+        <label for='restaurantID'><b>Restaurant ID*:</b></label><br>
+            <input type="text" id="restaurantID" name="restaurantID" placeholder="" pattern="[0-9]{8}"><br>
+        <small>Format: XXXXXXXX (Only available for number)</small><br><br>
+        <label for='borough'><b>Borough:</b></label><br>
+            <input type="text" id="borough" name="borough" placeholder=""><br><br>
+        <label for='street'><b>Street:</b></label><br>
+            <input type="text" id="street" name="street" placeholder=""><br><br>
+       <label for='Restaurant Telephone'><b>Restaurant Telephone:</b></label><br>
+            <input type="text" id="number" name="number" placeholder="" pattern="[0-9]{8}"><br>
+        <small>Format: 98765432</small><br><br>
+        <label for='cuisine'><b>Cuisine:</b></label><br>
+            <input type="text" id="cuisine" name="cuisine" placeholder=""><br><br>
+        <label for='description'><b>Description:</b></label><br>
+            <textarea name="description" id="description" cols="50" rows="10" placeholder="Type your comments..."></textarea><br>
+        </p>
+        <input type="submit" value="Create" /> 
+    </form>    
+</body>
+</div>
+</html>

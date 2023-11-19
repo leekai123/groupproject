@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    label{
+        font-size: 1.3em;
+    }
+    p{
+        font-size: 1.3em;
+    }
+    </style>
+</head>
+<body>
+    <div class="jumbotron text-center">
+        <h1>Update Restaurant Information</h1>
+    </div>
+    <form action="/update" method="POST">
+
+    <label for="restaurantID" value="item.restaurantID"><b>Restaurant ID*: <%= item.restaurantID %></b></label><br><br>
+    
+    <input type="hidden" id="postId" name="postId" value="<%= item.restaurantID %>" />
+     
+    <label for="name"><b>Restaurant Name*:</b></label>
+    <input type="text" id="name" name="name" class="form-control" placeholder="" value= "<% if (item.name) { %><%= item.name %><% } %>" /><br><br>
+                
+    <label for="borough"><b>Borough:</b></label>
+    <input type="text" id="borough" name="borough" class="form-control" placeholder="" value ="<% if (item.address.borough) { %><%= item.address.borough %><% } %>" /><br><br>
+
+    <label for="street"><b>Street:</b></label>
+    <input type="text" id="street" name="street" class="form-control" placeholder="" value ="<% if (item.address.street) { %><%= item.address.street %><% } %>" /><br><br>
+                
+    <label for="Restaurant Telephone"><b>Restaurant Telephone:</b></label>
+    <input type="text" id="number" name="number" class="form-control" placeholder="" value ="<% if (item.phone) { %><%= item.phone %><% } %>"/> <br><br>
+                
+    <label for="cuisine"><b>Cuisine:</b></label>
+    <input type="text" id="cuisine" name="cuisine" class="form-control" placeholder="" value = "<% if (item.cuisine) { %><%= item.cuisine %><% } %>" /><br><br>
+                
+    <label for="description"><b>Description:</b></label><br>
+    <textarea name="description" cols="50" rows="10" placeholder="" value = "<% if (item.description) { %><%= item.description %><% } %>" /></textarea><br>
+
+    <input type="submit" value="update">
+</html>
+

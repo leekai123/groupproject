@@ -1,0 +1,11 @@
+<html>
+    <body>
+        <H2>(<%= nItems %>) is found. There are (<%= nItems %>) restaurants. </H2>
+        <ul>
+            <% for (var i of items) { %>
+            <li>Restaurant ID: <a href="/details?_id=<%= i._id %>"><%= i.restaurantID %></a></li>
+            <% } %>
+        </ul>
+        <a href="/home">Back to home.</a>
+    </body>
+</html>
