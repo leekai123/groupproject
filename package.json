@@ -1,7 +1,7 @@
 {
     "name": "server",
-    "description": "COMPS381F project",
-    "author": "Lee Yat Kai, , ",
+    "description": "COMPS381F groupproject",
+    "author": "Lee Yat Kai(13342037), (13161005), (13248891) "
     "version": "0.0.1",
     "engines": {
         "node": "^14.15.1"
