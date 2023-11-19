@@ -1,11 +1,12 @@
 Restaurant management system
 
-Group: 11
+Group: 20
 Name: 
-XX (00000000),
-yy (00000100)
+XX (13161005),
+yy (13248891),
+Lee Yat Kai(13342037)
 
-Application link: https://projectsample381.render.com/
+Application link: 
 
 ********************************************
 # Login
