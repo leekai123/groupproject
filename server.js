@@ -28,7 +28,7 @@ app.use(session({
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
-
+app.use(express.static(path.join(__dirname,'public')))
 const createDocument = function(db, createddocuments, callback){
     const client = new MongoClient(mongourl);
     client.connect(function(err) {
