@@ -38,7 +38,7 @@ const createDocument = function(db, createddocuments, callback){
 
         db.collection('restaurants').insertOne(createddocuments, function(error, results){
             if(error){
-            	throw error
+                throw error
             };
             console.log(results);
             return callback();
@@ -47,7 +47,7 @@ const createDocument = function(db, createddocuments, callback){
 }
 
 const findDocument =  function(db, criteria, callback){
-    let cursor = db.collection('restaurants').find(criteria);
+    let cursor = db.collection('champion').find(criteria);
     console.log(`findDocument: ${JSON.stringify(criteria)}`);
     cursor.toArray(function(err, docs){
         assert.equal(err, null);
@@ -80,7 +80,7 @@ const handle_Edit = function(res, criteria) {
 
         let documentID = {};
         documentID['_id'] = ObjectID(criteria._id)
-        let cursor = db.collection('restaurants').find(documentID);
+        let cursor = db.collection('champion').find(documentID);
         cursor.toArray(function(err,docs) {
             client.close();
             assert.equal(err,null);
@@ -114,8 +114,8 @@ const updateDocument = function(criteria, updatedocument, callback){
         console.log("Connected successfully to server");
         const db = client.db(dbName);
         console.log(criteria);
-	console.log(updatedocument);
-	
+        console.log(updatedocument);
+
         db.collection('restaurants').updateOne(criteria,{
                 $set: updatedocument
             }, function(err, results){
@@ -129,11 +129,11 @@ const updateDocument = function(criteria, updatedocument, callback){
 
 const deleteDocument = function(db, criteria, callback){
 console.log(criteria);
-	db.collection('restaurants').deleteOne(criteria, function(err, results){
-	assert.equal(err, null);
-	console.log(results);
-	return callback();
-	});
+        db.collection('restaurants').deleteOne(criteria, function(err, results){
+        assert.equal(err, null);
+        console.log(results);
+        return callback();
+        });
 
 };
 
@@ -142,9 +142,9 @@ const handle_Delete = function(res, criteria) {
     client.connect(function(err) {
         console.log("Connected successfully to server");
         const db = client.db(dbName);
-	
-	let deldocument = {};
-	
+
+        let deldocument = {};
+
         deldocument["_id"] = ObjectID(criteria._id);
         deldocument["ownerID"] = criteria.owner;
         console.log(deldocument["_id"]);
@@ -165,7 +165,7 @@ app.get('/', function(req, res){
         console.log("...Not authenticated; directing to login");
         res.redirect("/login");
     }else{
-    	res.redirect("/login");
+        res.redirect("/login");
     }
     console.log("...Hello, welcome back");
 });
@@ -231,10 +231,10 @@ app.post('/search', function(req, res){
         });
     }
     else{
-    console.log("Invalid Entry - Restaurant ID is compulsory for searching!");
+    console.log("Invalid Entry - Champion ID is compulsory for searching!");
     res.status(200).redirect('/find');
-    }         	
-	});
+    }         
+        });
 });
 
 app.get('/details', function(req,res){
@@ -257,10 +257,9 @@ app.post('/create', function(req, res){
         const db = client.db(dbName);
         
         documents["_id"] = ObjectID;        
-	documents["restaurantID"] = req.body.restaurantID;	
-	documents['name']= req.body.name;
-	documents['cuisine']= req.body.cuisine;
-	documents['phone']= req.body.number;
+        documents["championID"] = req.body.championID;
+        documents['name']= req.body.name;
+        documents['role']= req.body.role;
         documents['description']= req.body.description;
         var addressdoc ={};
         addressdoc['borough'] = req.body.borough;
@@ -272,7 +271,7 @@ app.post('/create', function(req, res){
         
         documents["ownerID"] = `${req.session.userid}`;
         
-        if(documents.restaurantID){
+        if(documents.championID){
             console.log("...Creating the document");
             createDocument(db, documents, function(docs){
                 client.close();
@@ -282,7 +281,7 @@ app.post('/create', function(req, res){
         } else{
             client.close();
             console.log("Closed DB connection");
-            return res.status(200).render('info', {message: "Invalid entry - Restaurant ID is compulsory!"});
+            return res.status(200).render('info', {message: "Invalid entry - Champion ID is compulsory!"});
         }
     });
     //client.close();
@@ -300,8 +299,9 @@ app.post('/update', function(req, res){
                 if(req.body.name){
                 updatedocument["ownerID"] = `${req.session.userid}`
                 updatedocument['name']= req.body.name;
-                updatedocument['cuisine']= req.body.cuisine;
-                updatedocument['phone']= req.body.number;
+                updatedocument['role']= req.body.role;
+                updatedocument['abilities']= req.body.abilities;
+                updatedocument['difficulty']= req.body.difficulty;
                 updatedocument['description']= req.body.description;
 
                 var addressdoc ={};
@@ -311,8 +311,8 @@ app.post('/update', function(req, res){
                 }
                 updatedocument['address'] = addressdoc;
 
-        	let updateDoc = {};
-                updateDoc['restaurantID'] = req.body.postId;
+                let updateDoc = {};
+                updateDoc['championID'] = req.body.postId;
                 console.log(updateDoc);
 
                 updateDocument(updateDoc, updatedocument, function(docs) {
@@ -323,7 +323,7 @@ app.post('/update', function(req, res){
                 })
             }
             else{
-            	return res.render('info', {message: "Invalid entry - Restaurant name is compulsory!"});
+                return res.render('info', {message: "Invalid entry - Restaurant name is compulsory!"});
             }
     });
     
@@ -351,7 +351,7 @@ app.post('/api/item/restaurantID/:restaurantID', function(req,res) {
             let newDocument = {};
             newDocument['restaurantID'] = req.body.restaurantID;
 
-   	db.collection('restaurants').insertOne(newDocument, function(err,results){
+        db.collection('restaurants').insertOne(newDocument, function(err,results){
                 assert.equal(err,null);
                 client.close()
                 res.status(200).end()
