@@ -1,4 +1,4 @@
-League of Legends(LOL) character database
+League of Legends(LOL) Champion database
 
 Group: 20
 Name: 
@@ -10,7 +10,7 @@ Application link:
 
 ********************************************
 # Login
-Through the login interface, each user can access the restaurant information management system by entering their username and password.
+Through the login interface, each user can access League of Legends(LOL) Champion database by entering their username and password.
 
 Each user has a userID and password;
 [
@@ -29,16 +29,15 @@ In the home page, each user can log out their account by clicking logout.
 ********************************************
 # CRUD service
 - Create
--	A restaurant document may contain the following attributes with an example: 
-	1)	Restaurant Name (Shake Shack)
-	2)	Restaurant ID (00000003), restaurant id must be 8 digits
-	3)	Borough (Sha Tin)
-	4)	Street (null)
-	5)	Restaurant Telephone (26516828), telephone number must be 8 digits
-	6)	Cuisine (American)
-	7)	Description (... Very nice hamburger)
+-	A Champion database may contain the following attributes with an example: 
+	1)	Champion Name (AHRI)
+	2)	Champion ID (00000001), Character id must be 8 digits
+	3)	Role (Mage)
+	4)	Abilities (null)
+	5)	Difficulty (Moderate)
+	6)	Description (...ahri is a fox-like vastaya )
 
-Restaurant Name and Restaurant ID is mandatory, and other attributes are optional.
+Champion Name and Champion ID is mandatory, and other attributes are optional.
 
 Create operation is post request, and all information is in body of request.
 
