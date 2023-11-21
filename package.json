@@ -1,11 +1,8 @@
 {
     "name": "server",
     "description": "COMPS381F group 20 miniproject",
-    "author": "Lee Yat Kai(13342037), Shum Yee Lam (13161005), Tang Chi Kin (13248891) "
+    "author": "Lee Yat Kai(13342037), Shum Yee Lam (13161005), Tang Chi Kin (13248891) ",
     "version": "0.0.1",
-    "engines": {
-        "node": "^14.15.1"
-    },
     "dependencies": {
         "cookie-session": "latest",
         "body-parser": "^1.18.3",
