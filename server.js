@@ -260,15 +260,11 @@ app.post('/create', function(req, res){
         documents["championID"] = req.body.championID;
         documents['name']= req.body.name;
         documents['role']= req.body.role;
+        documents['abilities']= req.body.abilities;
+        documents['difficulty']= req.body.difficulty;
         documents['description']= req.body.description;
-        var addressdoc ={};
-        addressdoc['borough'] = req.body.borough;
-        if(req.body.street){
-            addressdoc['street'] = req.body.street;
-        }
-        documents['address']= addressdoc;
         console.log("...putting data into documents");
-        
+
         documents["ownerID"] = `${req.session.userid}`;
         
         if(documents.championID){
