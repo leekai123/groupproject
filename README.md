@@ -2,8 +2,8 @@ topic: to be discuss
 
 Group: 20
 Name: 
-XX (13161005),
-yy (13248891),
+Shum Yee Lam (13161005),
+Tang Chi Kin (13248891),
 Lee Yat Kai(13342037)
 
 Application link: 
