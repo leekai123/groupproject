@@ -36,7 +36,7 @@ const createDocument = function(db, createddocuments, callback){
         console.log("Connected successfully to the MongoDB database server.");
         const db = client.db(dbName);
 
-        db.collection('restaurants').insertOne(createddocuments, function(error, results){
+        db.collection('champion').insertOne(createddocuments, function(error, results){
             if(error){
                 throw error
             };
