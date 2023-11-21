@@ -1,4 +1,4 @@
-League of Legends(LOL) Champion database
+League of Legends(LOL) Favourite Champion database
 
 Group: 20
 Name: 
@@ -44,61 +44,59 @@ Create operation is post request, and all information is in body of request.
 ********************************************
 # CRUD service
 - Read
--  There are two options to read and find restaurants list all information or searching by restaurant id.
+-  There are two options to read and find Champions list all information or searching by Champion id.
 
 1) List all information
-	display.ejs will be displayed with all restaurant ID;
-	clicking on restaurant ID, the details will be shown;
+	display.ejs will be displayed with all Champion ID;
+	clicking on Champion ID, the details will be shown;
 
-2) Searching by restaurant id
-	input id of restaurant you want to find (00000003);
-	id is in the body of post request, and in display.ejs restaurant id will be shown as link;
-	clicking on restaurant ID, the details will be displayed;
+2) Searching by Champion id
+	input id of Champion you want to find (00000003);
+	id is in the body of post request, and in display.ejs Champion id will be shown as link;
+	clicking on Champion ID, the details will be displayed;
 
 ********************************************
 # CRUD service
 - Update
--	The user can update the restaurant information through the details interface.
--	Among the attribute shown above, Restaurant ID cannot be changed. Since restaurant ID is fixed, restaurant ID is searching criteria for updating information. 
+-	The user can update the Champion information through the details interface.
+-	Among the attribute shown above, Champion ID cannot be changed. Since Champion ID is fixed, Champion ID is searching criteria for updating information. 
 
 -	A restaurant document may contain the following attributes with an example: 
-	1)	Restaurant Name (Shake Shack)
-	2)	Borough (Tung Chung)
-	3)	Street (Tat Tung Road)
-	4)	Restaurant Telephone (29871728), telephone number must be 8 digits
-	5)	Cuisine (American)
-	6)	Description (... Very nice hamburger)
+  	1)	Role (Mage)
+	2)	Abilities (null)
+	3)	Difficulty (Moderate)
+	4)	Description (...ahri is a fox-like vastaya )
 
-	In example, we updated the borough, street and restaurant contact number.
+	In example, we updated the Role, Abilities, Difficulty and Description.
 
 ********************************************
 # CRUD service
 - Delete
--	The user can delete the restaurant information through the details interface.
+-	The user can delete the Champion information through the details interface.
 
 ********************************************
 # Restful
 In this project, there are three HTTP request types, post, get and delete.
 - Post 
 	Post request is used for insert.
-	Path URL: /api/item/restaurantID/:restaurantID
-	Test: curl -X POST -H "Content-Type: application/json" --data '{"name": "Taro & Tea", "restaurangID":"00000004"}'localhost:8099/api/item/restaurantID/00000004/name/Taro & Tea
+	Path URL: /api/item/championID/:championID
+	Test: curl -X POST -H "Content-Type: application/json" --data '{"name": "ahri", "championID":"00000001"}'localhost:8099/api/item/championID/00000001/name/ahri
 
 - Get
 	Get request is used for find.
-	Path URL: /api/item/restaurantID/:restaurantID
-	Test: curl -X GET http://localhost:8099/api/item/restaurantID/00000002
+	Path URL: /api/item/championID/:championID
+	Test: curl -X GET http://localhost:8099/api/item/championID/00000002
 
 - Delete
 	Delete request is used for deletion.
-	Path URL: /api/item/restaurantID/:restaurantID
-	Test: curl -X DELETE localhost:8099/api/item/restaurantID/00000002
+	Path URL: /api/item/championID/:championID
+	Test: curl -X DELETE localhost:8099/api/item/championID/00000002
 
 For all restful CRUD services, login should be done at first.
 
 
-curl -X POST -H "Content-Type: application/json" --data '{"name": "Taro & Tea", "restaurangID":"00000004"}' http://localhost:8099/api/item/restaurantID/00000004
+curl -X POST -H "Content-Type: application/json" --data '{"name": "ahri", "championID":"00000001"}' http://localhost:8099/api/item/championID/00000001
 
-curl -X GET http://localhost:8099/api/item/restaurantID/00000002
+curl -X GET http://localhost:8099/api/item/championID/00000002
 
-curl -X DELETE http://localhost:8099/api/item/restaurantID/00000002
+curl -X DELETE http://localhost:8099/api/item/championID/00000002
