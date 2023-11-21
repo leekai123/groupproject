@@ -1,4 +1,4 @@
-topic: to be discuss
+League of Legends(LOL) character database
 
 Group: 20
 Name: 
