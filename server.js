@@ -17,7 +17,7 @@ var usersinfo = new Array(
     {name: "user2", password: "cs381"},
     {name: "user3", password: "cs381"}
 );
-
+var path = require('path');
 var documents = {};
 //Main Body
 app.set('view engine', 'ejs');
