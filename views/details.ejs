@@ -13,15 +13,14 @@
 </head>
 <body>
     <div class="jumbotron text-center">
-        <h1>Restautant Information</h1>
+        <h1>Champion Information</h1>
     </div>
     <div class="row">
-        <p>Restaurant ID:  <% if (typeof (item.restaurantID) !== "undefined") { %><%= item.restaurantID %><% } %></p><br>
-        <p>Restaurant Name:  <% if (typeof (item.name) !== "undefined") { %><%= item.name %><% } %></p><br>
-        <p>Borough:  <% if (typeof (item.address.borough) !== "undefined") { %><%= item.address.borough %><% } %></p><br>
-        <p>Street:  <% if (typeof (item.address.street) !== "undefined") { %><%= item.address.street %><% } %></p><br>
-        <p>Restaurant Telephone:  <% if (typeof (item.phone) !== "undefined") { %><%= item.phone %><% } %></p><br>
-        <p>Cuisine:  <% if (typeof (item.cuisine) !== "undefined") { %><%= item.cuisine %><% } %></p><br>
+        <p>Champion ID:  <% if (typeof (item.championID) !== "undefined") { %><%= item.restaurantID %><% } %></p><br>
+        <p>Champion Name:  <% if (typeof (item.name) !== "undefined") { %><%= item.name %><% } %></p><br>
+        <p>Role:  <% if (typeof (item.address.role) !== "undefined") { %><%= item.address.borough %><% } %></p><br>
+        <p>Abilities:  <% if (typeof (item.address.abilities) !== "undefined") { %><%= item.address.street %><% } %></p><br>
+        <p>Difficulty:  <% if (typeof (item.difficulty) !== "undefined") { %><%= item.cuisine %><% } %></p><br>
         <p>Description:  <% if (typeof (item.description) !== "undefined") { %><%= item.description %><% } %></p><br>
     </div>
         <a href="/edit?_id=<%= item._id %>" >Update the information</a><br><br>
