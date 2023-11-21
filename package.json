@@ -4,13 +4,13 @@
     "author": "Lee Yat Kai(13342037), Shum Yee Lam (13161005), Tang Chi Kin (13248891) ",
     "version": "0.0.1",
     "dependencies": {
-        "cookie-session": "latest",
+        "assert": "^1.4.1",
         "body-parser": "^1.18.3",
+        "cookie-session": "latest",
         "ejs": "*",
         "express": "*",
-        "mongodb": "3.6.5",
-        "assert": "^1.4.1"
-        
+        "mangodb": "^1.0.0",
+        "mongodb": "^3.7.4"
     },
     "engine": "node >= 12.0.0",
     "scripts": {
