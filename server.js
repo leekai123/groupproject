@@ -116,7 +116,7 @@ const updateDocument = function(criteria, updatedocument, callback){
         console.log(criteria);
         console.log(updatedocument);
 
-        db.collection('restaurants').updateOne(criteria,{
+        db.collection('champion').updateOne(criteria,{
                 $set: updatedocument
             }, function(err, results){
                 client.close();
@@ -129,7 +129,7 @@ const updateDocument = function(criteria, updatedocument, callback){
 
 const deleteDocument = function(db, criteria, callback){
 console.log(criteria);
-        db.collection('restaurants').deleteOne(criteria, function(err, results){
+        db.collection('champion').deleteOne(criteria, function(err, results){
         assert.equal(err, null);
         console.log(results);
         return callback();
@@ -220,9 +220,9 @@ app.post('/search', function(req, res){
         const db = client.db(dbName);
     
     var searchID={};
-    searchID['restaurantID'] = req.body.restaurantID;
+    searchID['championID'] = req.body.championID;
     
-    if (searchID.restaurantID){
+    if (searchID.championID){
     console.log("...Searching the document");
     findDocument(db, searchID, function(docs){
             client.close();
@@ -323,7 +323,7 @@ app.post('/update', function(req, res){
                 })
             }
             else{
-                return res.render('info', {message: "Invalid entry - Restaurant name is compulsory!"});
+                return res.render('info', {message: "Invalid entry - Champion name is compulsory!"});
             }
     });
     
@@ -340,8 +340,8 @@ app.get('/delete', function(req, res){
 
 //Restful
 //insert
-app.post('/api/item/restaurantID/:restaurantID', function(req,res) {
-    if (req.params.restaurantID) {
+app.post('/api/item/championtID/:championID', function(req,res) {
+    if (req.params.championID) {
         console.log(req.body)
         const client = new MongoClient(mongourl);
         client.connect(function(err){
@@ -349,9 +349,9 @@ app.post('/api/item/restaurantID/:restaurantID', function(req,res) {
             console.log("Connected successfully to server");
             const db = client.db(dbName);
             let newDocument = {};
-            newDocument['restaurantID'] = req.body.restaurantID;
+            newDocument['championtID'] = req.body.championID;
 
-        db.collection('restaurants').insertOne(newDocument, function(err,results){
+        db.collection('champion').insertOne(newDocument, function(err,results){
                 assert.equal(err,null);
                 client.close()
                 res.status(200).end()
@@ -360,15 +360,15 @@ app.post('/api/item/restaurantID/:restaurantID', function(req,res) {
                 })
             }
         else {
-        res.status(500).json({"error": "missing restaurant ID"});
+        res.status(500).json({"error": "missing champion ID"});
     }
 })
 
 //find
-app.get('/api/item/restaurantID/:restaurantID', function(req,res) {
-    if (req.params.restaurantID) {
+app.get('/api/item/championID/:championID', function(req,res) {
+    if (req.params.championID) {
         let criteria = {};
-        criteria['restaurantID'] = req.params.restaurantID;
+        criteria['championID'] = req.params.championID;
         const client = new MongoClient(mongourl);
         client.connect(function(err) {
             assert.equal(null, err);
@@ -382,29 +382,29 @@ app.get('/api/item/restaurantID/:restaurantID', function(req,res) {
             });
         });
     } else {
-        res.status(500).json({"error": "missing restaurant id"});
+        res.status(500).json({"error": "missing champion id"});
     }
 })
 
 //delete
-app.delete('/api/item/restaurantID/:restaurantID', function(req,res){
-    if (req.params.restaurantID) {
+app.delete('/api/item/championID/:championID', function(req,res){
+    if (req.params.championID) {
         let criteria = {};
-        criteria['restaurantID'] = req.params.restaurantID;
+        criteria['championID'] = req.params.championID;
         const client = new MongoClient(mongourl);
         client.connect(function(err){
             assert.equal(null, err);
             console.log("Connected successfully to server");
             const db = client.db(dbName);
 
-            db.collection('restaurants').deleteMany(criteria, function(err,results) {
+            db.collection('champion').deleteMany(criteria, function(err,results) {
                 assert.equal(err,null)
                 client.close()
                 res.status(200).end();
             })
         });
     } else {
-        res.status(500).json({"error": "missing restaurant id"});       
+        res.status(500).json({"error": "missing champion id"});       
     }
 })
 
