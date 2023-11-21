@@ -16,28 +16,25 @@
 </head>
 <body>
     <div class="jumbotron text-center">
-        <h1>Update Restaurant Information</h1>
+        <h1>Update Champion Information</h1>
     </div>
     <form action="/update" method="POST">
 
-    <label for="restaurantID" value="item.restaurantID"><b>Restaurant ID*: <%= item.restaurantID %></b></label><br><br>
+    <label for="championID" value="item.championID"><b>Champion ID*: <%= item.championID %></b></label><br><br>
     
-    <input type="hidden" id="postId" name="postId" value="<%= item.restaurantID %>" />
+    <input type="hidden" id="postId" name="postId" value="<%= item.championID %>" />
      
-    <label for="name"><b>Restaurant Name*:</b></label>
+    <label for="name"><b>Champion Name*:</b></label>
     <input type="text" id="name" name="name" class="form-control" placeholder="" value= "<% if (item.name) { %><%= item.name %><% } %>" /><br><br>
                 
-    <label for="borough"><b>Borough:</b></label>
-    <input type="text" id="borough" name="borough" class="form-control" placeholder="" value ="<% if (item.address.borough) { %><%= item.address.borough %><% } %>" /><br><br>
+    <label for="role"><b>Role:</b></label>
+    <input type="text" id="role" name="role" class="form-control" placeholder="" value ="<% if (item.role) { %><%= item.role %><% } %>" /><br><br>
 
-    <label for="street"><b>Street:</b></label>
-    <input type="text" id="street" name="street" class="form-control" placeholder="" value ="<% if (item.address.street) { %><%= item.address.street %><% } %>" /><br><br>
+    <label for="abilities"><b>Abilities:</b></label>
+    <input type="text" id="abilities" name="abilities" class="form-control" placeholder="" value ="<% if (item.abilities) { %><%= item.abilities %><% } %>" /><br><br>
                 
-    <label for="Restaurant Telephone"><b>Restaurant Telephone:</b></label>
-    <input type="text" id="number" name="number" class="form-control" placeholder="" value ="<% if (item.phone) { %><%= item.phone %><% } %>"/> <br><br>
-                
-    <label for="cuisine"><b>Cuisine:</b></label>
-    <input type="text" id="cuisine" name="cuisine" class="form-control" placeholder="" value = "<% if (item.cuisine) { %><%= item.cuisine %><% } %>" /><br><br>
+    <label for="difficulty"><b>Difficulty:</b></label>
+    <input type="text" id="difficulty" name="difficulty" class="form-control" placeholder="" value = "<% if (item.difficulty) { %><%= item.difficulty %><% } %>" /><br><br>
                 
     <label for="description"><b>Description:</b></label><br>
     <textarea name="description" cols="50" rows="10" placeholder="" value = "<% if (item.description) { %><%= item.description %><% } %>" /></textarea><br>
