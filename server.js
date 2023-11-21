@@ -300,13 +300,6 @@ app.post('/update', function(req, res){
                 updatedocument['difficulty']= req.body.difficulty;
                 updatedocument['description']= req.body.description;
 
-                var addressdoc ={};
-                addressdoc['borough'] = req.body.borough;
-                if(req.body.street){
-                    addressdoc['street'] = req.body.street;
-                }
-                updatedocument['address'] = addressdoc;
-
                 let updateDoc = {};
                 updateDoc['championID'] = req.body.postId;
                 console.log(updateDoc);
