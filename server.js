@@ -30,7 +30,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname,'public')));
 
-const createDocument = function(db, createdchampionsinfo, callback){
+const createChampion = function(db, createdchampionsinfo, callback){
     const client = new MongoClient(mongourl);
     client.connect(function(err) {
         art.equal(null, err);
@@ -47,24 +47,24 @@ const createDocument = function(db, createdchampionsinfo, callback){
     });
 }
 
-const findDocument =  function(db, criteria, callback){
+const findChampion =  function(db, criteria, callback){
     let cursor = db.collection('champion').find(criteria);
-    console.log(`findDocument: ${JSON.stringify(criteria)}`);
+    console.log(`findChampion: ${JSON.stringify(criteria)}`);
     cursor.toArray(function(err, docs){
         art.equal(err, null);
-        console.log(`findDocument: ${docs.length}`);
+        console.log(`findChampion: ${docs.length}`);
         return callback(docs);
     });
 }
 
-const handle_Find = function(res, criteria){
+const execfind = function(res, criteria){
     const client = new MongoClient(mongourl);
     client.connect(function(err) {
         art.equal(null, err);
         console.log("successfully connect mongodb");
         const db = client.db(dbName);
 
-        findDocument(db, criteria, function(docs){
+        findChampion(db, criteria, function(docs){
             client.close();
             console.log("Closed DB connection");
             res.status(200).render('display', {nItems: docs.length, items: docs});
@@ -72,7 +72,7 @@ const handle_Find = function(res, criteria){
     });
 }
 
-const handle_Edit = function(res, criteria) {
+const execedit = function(res, criteria) {
     const client = new MongoClient(mongourl);
     client.connect(function(err) {
         art.equal(null, err);
@@ -91,7 +91,7 @@ const handle_Edit = function(res, criteria) {
     });
 }
 
-const handle_Details = function(res, criteria) {
+const execdetails = function(res, criteria) {
     const client = new MongoClient(mongourl);
     client.connect(function(err) {
         art.equal(null, err);
@@ -100,7 +100,7 @@ const handle_Details = function(res, criteria) {
 
         let documentID = {};
         documentID['_id'] = ObjectID(criteria._id)
-        findDocument(db, documentID, function(docs){ 
+        findChampion(db, documentID, function(docs){ 
             client.close();
             console.log("Closed DB connection");
             res.status(200).render('details', {item: docs[0]});
@@ -108,17 +108,17 @@ const handle_Details = function(res, criteria) {
     });
 }
 
-const updateDocument = function(criteria, updatedocument, callback){
+const updateChampion = function(criteria, updatechampion, callback){
     const client = new MongoClient(mongourl);
     client.connect(function(err){
         art.equal(null, err);
         console.log("successfully connect mongodb");
         const db = client.db(dbName);
         console.log(criteria);
-        console.log(updatedocument);
+        console.log(updatechampion);
 
         db.collection('champion').updateOne(criteria,{
-                $set: updatedocument
+                $set: updatechampion
             }, function(err, results){
                 client.close();
                 art.equal(err, null);
@@ -128,7 +128,7 @@ const updateDocument = function(criteria, updatedocument, callback){
     });
 }
 
-const deleteDocument = function(db, criteria, callback){
+const deleteChampion = function(db, criteria, callback){
 console.log(criteria);
         db.collection('champion').deleteOne(criteria, function(err, results){
         art.equal(err, null);
@@ -157,7 +157,7 @@ app.get('/delete-champion', function(req, res){
                 "ownerID": ownerID
             };
 
-            deleteDocument(db, criteria, function(results){
+            deleteChampion(db, criteria, function(results){
                 client.close();
                 console.log("close database");
                 if (results.deletedCount > 0) {
@@ -256,7 +256,7 @@ app.get('/home', function(req, res){
 
 app.get('/list', function(req, res){
     console.log("list info");
-    handle_Find(res,req.query.docs);
+    execfind(res,req.query.docs);
     
 });
 
@@ -276,7 +276,7 @@ app.post('/search', function(req, res){
     
     if (searchID.championID){
     console.log("search champion");
-    findDocument(db, searchID, function(docs){
+    findChampion(db, searchID, function(docs){
             client.close();
             console.log("close connect");
             res.status(200).render('display', {nItems: docs.length, items: docs});
@@ -290,11 +290,11 @@ app.post('/search', function(req, res){
 });
 
 app.get('/details', function(req,res){
-    handle_Details(res, req.query);
+    execdetails(res, req.query);
 });
 
 app.get('/edit', function(req,res) {
-    handle_Edit(res, req.query);
+    execedit(res, req.query);
 })
 
 app.get('/create', function(req, res){
@@ -321,7 +321,7 @@ app.post('/create', function(req, res){
         
         if(championsinfo.championID){
             console.log("...Creating the document");
-            createDocument(db, championsinfo, function(docs){
+            createChampion(db, championsinfo, function(docs){
                 client.close();
                 console.log("Closed DB connection");
                 return res.status(200).render('info', {message: "created campion"});
@@ -338,25 +338,25 @@ app.post('/create', function(req, res){
 
 
 app.post('/update', function(req, res){
-    var updatedocument={};
+    var updatechampion={};
     const client = new MongoClient(mongourl);
         client.connect(function(err){
             art.equal(null, err);
             console.log("successfully connect mongodb");
             
                 if(req.body.name){
-                updatedocument["ownerID"] = `${req.session.userid}`
-                updatedocument['name']= req.body.name;
-                updatedocument['role']= req.body.role;
-                updatedocument['abilities']= req.body.abilities;
-                updatedocument['difficulty']= req.body.difficulty;
-                updatedocument['description']= req.body.description;
+                updatechampion["ownerID"] = `${req.session.userid}`
+                updatechampion['name']= req.body.name;
+                updatechampion['role']= req.body.role;
+                updatechampion['abilities']= req.body.abilities;
+                updatechampion['difficulty']= req.body.difficulty;
+                updatechampion['description']= req.body.description;
 
                 let updateDoc = {};
                 updateDoc['championID'] = req.body.postId;
                 console.log(updateDoc);
 
-                updateDocument(updateDoc, updatedocument, function(docs) {
+                updateChampion(updateDoc, updatechampion, function(docs) {
                     client.close();
                     console.log("close database");
                     return res.render('info', {message: "campion information updated"});
@@ -407,7 +407,7 @@ app.get('/api/item/championID/:championID', function(req,res) {
             console.log("successfully connect mongodb");
             const db = client.db(dbName);
 
-            findDocument(db, criteria, function(docs){
+            findChampion(db, criteria, function(docs){
                 client.close();
                 console.log("Closed DB connection");
                 res.status(200).json(docs);
