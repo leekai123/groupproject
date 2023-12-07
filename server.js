@@ -34,7 +34,7 @@ const createDocument = function(db, createddocuments, callback){
     const client = new MongoClient(mongourl);
     client.connect(function(err) {
         assert.equal(null, err);
-        console.log("Connected successfully to the MongoDB database server.");
+        console.log("successfully connect mongodb");
         const db = client.db(dbName);
 
         db.collection('champion').insertOne(createddocuments, function(error, results){
@@ -61,7 +61,7 @@ const handle_Find = function(res, criteria){
     const client = new MongoClient(mongourl);
     client.connect(function(err) {
         assert.equal(null, err);
-        console.log("Connected successfully to server");
+        console.log("successfully connect mongodb");
         const db = client.db(dbName);
 
         findDocument(db, criteria, function(docs){
@@ -76,7 +76,7 @@ const handle_Edit = function(res, criteria) {
     const client = new MongoClient(mongourl);
     client.connect(function(err) {
         assert.equal(null, err);
-        console.log("Connected successfully to server");
+        console.log("successfully connect mongodb");
         const db = client.db(dbName);
 
         let documentID = {};
@@ -95,7 +95,7 @@ const handle_Details = function(res, criteria) {
     const client = new MongoClient(mongourl);
     client.connect(function(err) {
         assert.equal(null, err);
-        console.log("Connected successfully to server");
+        console.log("successfully connect mongodb");
         const db = client.db(dbName);
 
         let documentID = {};
@@ -112,7 +112,7 @@ const updateDocument = function(criteria, updatedocument, callback){
     const client = new MongoClient(mongourl);
     client.connect(function(err){
         assert.equal(null, err);
-        console.log("Connected successfully to server");
+        console.log("successfully connect mongodb");
         const db = client.db(dbName);
         console.log(criteria);
         console.log(updatedocument);
@@ -149,7 +149,7 @@ app.get('/delete-champion', function(req, res){
     if(championID && ownerID){
         const client = new MongoClient(mongourl);
         client.connect(function(err) {
-            console.log("Connected successfully to server");
+            console.log("successfully connect mongodb");
             const db = client.db(dbName);
 
             let criteria = {
@@ -159,16 +159,16 @@ app.get('/delete-champion', function(req, res){
 
             deleteDocument(db, criteria, function(results){
                 client.close();
-                console.log("Closed DB connection");
+                console.log("close database");
                 if (results.deletedCount > 0) {
-                    return res.status(200).render('info', {message: "Document is successfully deleted."});
+                    return res.status(200).render('info', {message: "delete champion information already"});
                 } else {
-                    return res.status(200).render('info', {message: "Access denied - You don't have the access and deletion right!"});
+                    return res.status(200).render('info', {message: "Error - You can't delete the champion information"});
                 }
             });
         });
     } else {
-        return res.status(400).render('info', {message: "Invalid request - Missing championID or ownerID"});
+        return res.status(400).render('info', {message: "Missing championID"});
     }
 });
 
@@ -201,11 +201,11 @@ app.post('/delete', function(req, res){
             }
 
             if (result.deletedCount === 1) {
-                console.log("Champion information deleted successfully.");
-                return res.render('info', { message: "Champion information deleted successfully!" });
+                console.log("Champion information deleted already");
+                return res.render('info', { message: "Champion information deleted already" });
             } else {
-                console.log("Champion information not found for deletion.");
-                return res.render('info', { message: "Champion information not found for deletion." });
+                console.log("Caution: Champion information not found");
+                return res.render('info', { message: "Caution: Champion information not found" });
             }
         });
     });
@@ -250,12 +250,12 @@ app.get('/logout', function(req, res){
 });
 
 app.get('/home', function(req, res){
-    console.log("...Welcome to the home page!");
+    console.log("home");
     return res.status(200).render("home");
 });
 
 app.get('/list', function(req, res){
-    console.log("Show all information! ");
+    console.log("list info");
     handle_Find(res,req.query.docs);
     
 });
@@ -268,22 +268,22 @@ app.post('/search', function(req, res){
     const client = new MongoClient(mongourl);
     client.connect(function(err){
         assert.equal(null, err);
-        console.log("Connected successfully to the DB server.");
+        console.log("successfully connect mongodb");
         const db = client.db(dbName);
     
     var searchID={};
     searchID['championID'] = req.body.championID;
     
     if (searchID.championID){
-    console.log("...Searching the document");
+    console.log("search champion");
     findDocument(db, searchID, function(docs){
             client.close();
-            console.log("Closed DB connection");
+            console.log("close connect");
             res.status(200).render('display', {nItems: docs.length, items: docs});
         });
     }
     else{
-    console.log("Invalid Entry - Champion ID is compulsory for searching!");
+    console.log("Missing Champion ID");
     res.status(200).redirect('/find');
     }         
         });
@@ -305,7 +305,7 @@ app.post('/create', function(req, res){
     const client = new MongoClient(mongourl);
     client.connect(function(err){
         assert.equal(null, err);
-        console.log("Connected successfully to the DB server.");
+        console.log("successfully connect mongodb!");
         const db = client.db(dbName);
         
         documents["_id"] = ObjectID;        
@@ -324,7 +324,7 @@ app.post('/create', function(req, res){
             createDocument(db, documents, function(docs){
                 client.close();
                 console.log("Closed DB connection");
-                return res.status(200).render('info', {message: "Document is created successfully!"});
+                return res.status(200).render('info', {message: "created campion"});
             });
         } else{
             client.close();
@@ -342,7 +342,7 @@ app.post('/update', function(req, res){
     const client = new MongoClient(mongourl);
         client.connect(function(err){
             assert.equal(null, err);
-            console.log("Connected successfully to server");
+            console.log("successfully connect mongodb");
             
                 if(req.body.name){
                 updatedocument["ownerID"] = `${req.session.userid}`
@@ -358,13 +358,13 @@ app.post('/update', function(req, res){
 
                 updateDocument(updateDoc, updatedocument, function(docs) {
                     client.close();
-                    console.log("Closed DB connection");
-                    return res.render('info', {message: "Document is updated successfully!."});
+                    console.log("close database");
+                    return res.render('info', {message: "campion information updated"});
                     
                 })
             }
             else{
-                return res.render('info', {message: "Invalid entry - Champion name is compulsory!"});
+                return res.render('info', {message: "Missing champion name"});
             }
     });
     
@@ -378,7 +378,7 @@ app.post('/api/item/championtID/:championID', function(req,res) {
         const client = new MongoClient(mongourl);
         client.connect(function(err){
             assert.equal(null,err);
-            console.log("Connected successfully to server");
+            console.log("successfully connect mongodb");
             const db = client.db(dbName);
             let newDocument = {};
             newDocument['championtID'] = req.body.championID;
@@ -404,7 +404,7 @@ app.get('/api/item/championID/:championID', function(req,res) {
         const client = new MongoClient(mongourl);
         client.connect(function(err) {
             assert.equal(null, err);
-            console.log("Connected successfully to server");
+            console.log("successfully connect mongodb");
             const db = client.db(dbName);
 
             findDocument(db, criteria, function(docs){
@@ -426,7 +426,7 @@ app.delete('/api/item/championID/:championID', function(req,res){
         const client = new MongoClient(mongourl);
         client.connect(function(err){
             assert.equal(null, err);
-            console.log("Connected successfully to server");
+            console.log("successfully connect mongodb");
             const db = client.db(dbName);
 
             db.collection('champion').deleteMany(criteria, function(err,results) {
