@@ -3,7 +3,7 @@ const assert = require('assert');
 const MongoClient = require('mongodb').MongoClient;
 const ObjectID = require('mongodb').ObjectID;
 
-const mongourl = 'mongodb+srv://s1334203:s1334203@cluster0.0fyyfo0.mongodb.net/?retryWrites=true&w=majority'; 
+const mongourl = 'mongodb+srv://s1316100:Laoha123321@cluster0.dsv5xag.mongodb.net/?retryWrites=true&w=majority'; 
 const dbName = 'champion';
 
 const express = require('express');
@@ -138,37 +138,88 @@ console.log(criteria);
 
 };
 
-const handle_Delete = function(res, criteria) {
+app.get('/delete', function(req, res){
+    res.render('delete'); // Render the delete.ejs page for the user to enter championID
+});
+
+app.get('/delete-champion', function(req, res){
+    const championID = req.query.championID;
+    const ownerID = req.session.userid;
+
+    if(championID && ownerID){
+        const client = new MongoClient(mongourl);
+        client.connect(function(err) {
+            console.log("Connected successfully to server");
+            const db = client.db(dbName);
+
+            let criteria = {
+                "_id": ObjectID(championID),
+                "ownerID": ownerID
+            };
+
+            deleteDocument(db, criteria, function(results){
+                client.close();
+                console.log("Closed DB connection");
+                if (results.deletedCount > 0) {
+                    return res.status(200).render('info', {message: "Document is successfully deleted."});
+                } else {
+                    return res.status(200).render('info', {message: "Access denied - You don't have the access and deletion right!"});
+                }
+            });
+        });
+    } else {
+        return res.status(400).render('info', {message: "Invalid request - Missing championID or ownerID"});
+    }
+});
+
+app.post('/delete', function(req, res){
+    // Handle the form submission (delete logic) here
+    const championID = req.body.championID;
+
+    if (!championID) {
+        return res.status(400).render('info', { message: "Champion ID is required for deletion." });
+    }
+
     const client = new MongoClient(mongourl);
+
     client.connect(function(err) {
+        assert.equal(null, err);
         console.log("Connected successfully to server");
         const db = client.db(dbName);
 
-        let deldocument = {};
+        let criteria = {
+            championID: championID,
+            ownerID: req.session.userid
+        };
 
-        deldocument["_id"] = ObjectID(criteria._id);
-        deldocument["ownerID"] = criteria.owner;
-        console.log(deldocument["_id"]);
-        console.log(deldocument["ownerID"]);
-        
-        deleteDocument(db, deldocument, function(results){
+        db.collection('champion').deleteOne(criteria, function(err, result) {
             client.close();
-            console.log("Closed DB connection");
-            res.status(200).render('info', {message: "Document is successfully deleted."});
-        })     
+
+            if (err) {
+                console.error("Error deleting champion information:", err);
+                return res.status(500).render('info', { message: "Error deleting champion information." });
+            }
+
+            if (result.deletedCount === 1) {
+                console.log("Champion information deleted successfully.");
+                return res.render('info', { message: "Champion information deleted successfully!" });
+            } else {
+                console.log("Champion information not found for deletion.");
+                return res.render('info', { message: "Champion information not found for deletion." });
+            }
+        });
     });
-    //client.close();
-    //res.status(200).render('info', {message: "Document is successfully deleted."});
-}
+});
+
 
 app.get('/', function(req, res){
-    if(!req.session.authenticated){
+    if (req.session.authenticated) {
+        console.log("...Hello, welcome back");
+        return res.redirect("/home");
+    } else {
         console.log("...Not authenticated; directing to login");
-        res.redirect("/login");
-    }else{
-        res.redirect("/login");
+        return res.redirect("/login");
     }
-    console.log("...Hello, welcome back");
 });
 
 //login
@@ -317,15 +368,6 @@ app.post('/update', function(req, res){
             }
     });
     
-});
-
-app.get('/delete', function(req, res){
-    if(req.query.owner == req.session.userid){
-        console.log("...Hello !");
-        handle_Delete(res, req.query);
-    }else{
-        return res.status(200).render('info', {message: "Access denied - You don't have the access and deletion right!"}); 
-    }
 });
 
 //Restful
