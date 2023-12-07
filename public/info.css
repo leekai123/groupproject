@@ -1,0 +1,28 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+b {
+    display: block;
+    text-align: center;
+    margin: 50px 0;
+    font-size: 24px;
+    color: #333;
+}
+
+a {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    color: #007bff;
+    margin-top: 20px;
+    transition: color 0.3s;
+}
+
+a:hover {
+    color: #0056b3;
+}
+
