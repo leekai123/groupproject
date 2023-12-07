@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="/edit.css">
+</head>
+<body>
+    <div class="jumbotron text-center">
+        <h1>Update Champion Information</h1>
+    </div>
+    <form action="/update" method="POST">
+
+    <label for="championID" value="item.championID"><b>Champion ID*: <%= item.championID %></b></label><br><br>
+    
+    <input type="hidden" id="postId" name="postId" value="<%= item.championID %>" />
+     
+    <label for="name"><b>Champion Name*:</b></label>
+    <input type="text" id="name" name="name" class="form-control" placeholder="" value= "<% if (item.name) { %><%= item.name %><% } %>" /><br><br>
+                
+    <label for="role"><b>Role:</b></label>
+    <input type="text" id="role" name="role" class="form-control" placeholder="" value ="<% if (item.role) { %><%= item.role %><% } %>" /><br><br>
+
+    <label for="abilities"><b>Abilities:</b></label>
+    <input type="text" id="abilities" name="abilities" class="form-control" placeholder="" value ="<% if (item.abilities) { %><%= item.abilities %><% } %>" /><br><br>
+                
+    <label for="difficulty"><b>Difficulty:</b></label>
+    <input type="text" id="difficulty" name="difficulty" class="form-control" placeholder="" value = "<% if (item.difficulty) { %><%= item.difficulty %><% } %>" /><br><br>
+                
+    <label for="description"><b>Description:</b></label><br>
+    <textarea name="description" cols="50" rows="10" placeholder="" value = "<% if (item.description) { %><%= item.description %><% } %>" /></textarea><br>
+
+    <input type="submit" value="update">
+</html>
+

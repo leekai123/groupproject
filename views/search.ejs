@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="stylesheet" type="text/css" href="/search.css">
+
+</head>
+<body>
+	<div class="jumbotron text-center">
+	<h1>Search Champion Information</h1>
+	</div>
+	<form action="/search" method="POST">
+	<label for="championID"><b>Please input champion ID:</b></label><br>
+	<input type="text" id="championID" name="championID" placeholder="Type the champion ID" pattern="[0-9]{8}"><br>
+	<small>Format: XXXXXXXX (Only available for number)</small><br>
+	<input type="submit" value="Search" />
+	<p><a href='/home'>Back to home. </a></p>
+</body>
+</html>
+

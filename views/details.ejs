@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Details</title>
+    <link rel="stylesheet" type="text/css" href="/detail.css">
+</head>
+<body>
+    <div class="jumbotron text-center">
+        <h1>Champion Information</h1>
+    </div>
+    <div class="row">
+        <p>Champion ID:  <% if (typeof (item.championID) !== "undefined") { %><%= item.championID %><% } %></p><br>
+        <p>Champion Name:  <% if (typeof (item.name) !== "undefined") { %><%= item.name %><% } %></p><br>
+        <p>Role:  <% if (typeof (item.role) !== "undefined") { %><%= item.role %><% } %></p><br>
+        <p>Abilities:  <% if (typeof (item.abilities) !== "undefined") { %><%= item.abilities %><% } %></p><br>
+        <p>Difficulty:  <% if (typeof (item.difficulty) !== "undefined") { %><%= item.difficulty %><% } %></p><br>
+        <p>Description:  <% if (typeof (item.description) !== "undefined") { %><%= item.description %><% } %></p><br>
+    </div>
+        <a href="/edit?_id=<%= item._id %>" >Update the information</a><br><br>
+        <a href="/home">Home</a>
+</body>
+</html>
+

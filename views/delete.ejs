@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Champion - League of Legends</title>
+    <link rel="stylesheet" href="/delete.css">
+</head>
+<body>
+    <div class="jumbotron text-center">
+        <h1>Delete Champion Information</h1>
+    </div>
+    <form action="/delete" method="POST">
+        <label for='championID'><b>Champion ID to Delete*:</b></label><br>
+        <input type="text" id="championID" name="championID" placeholder="" pattern="[0-9]{8}" required><br>
+        <small>Format: XXXXXXXX (Only available for number)</small><br><br>
+        <input type="submit" value="Delete"/> 
+    </form>    
+    <a href="/home">Back to home.</a>
+</body>
+</html>
