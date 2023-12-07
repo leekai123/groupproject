@@ -92,6 +92,11 @@ In this project, there are three HTTP request types, post, get and delete.
 	Path URL: /api/item/championID/:championID
 	Test: curl -X DELETE localhost:8099/api/item/championID/00000002
 
+- Update
+	Update request is used for update information
+	Path URL: /api/item/championID/:championID
+	Test: curl -X UPDATE localhost:8099/api/item/championID/00000002
+
 For all restful CRUD services, login should be done at first.
 
 
